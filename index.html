@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>AIが書いた論文の評価</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <p class="eyebrow">ご協力のお願い</p>
+    <h1>AIが書いた研究論文5本の評価</h1>
+  </div>
+</header>
+
+<main class="wrap">
+  <details id="intro" class="card" open>
+    <summary><span class="summary-title">ご依頼の内容と評価の条件</span></summary>
+    <div class="prose">
+      <p>このたびは評価をお引き受けいただき、ありがとうございます。</p>
+      <p>この研究では、AIエージェントが研究の問いを自分で立て、研究を行い、論文を書くところまでを、人の助言なしに行うシステムを作りました。お願いしたいのは、このシステムが書いた5本の論文を、研究者の目で評価していただくことです。</p>
+      <p>5本はすべて英語で、1本20〜36ページです。分野は、衛星データによる土地被覆の変化、気温のアンサンブル予報、作物の多様性、湿地などです。ご専門の分野でなくてもかまいません。分野についての専門性は、論文ごとにお尋ねします。</p>
+
+      <h2>評価の条件</h2>
+      <ol>
+        <li>論文は、自律的に動くAIの研究システムが書きました。AIエージェントが問いを選び、研究を行い、論文を書いています。誰が（何が）書いたかではなく、研究としての中身で評価してください。</li>
+        <li>ほかの論文と比べた順位ではなく、1本ごとに評価してください。</li>
+        <li>Web検索で、先行研究、新規性、論文中の事実を確かめてかまいません。「探した範囲では見つからない」と「存在しない」は区別してください。</li>
+        <li>論文がコード、データ、記録に触れていても、それらは入手しないでください。研究を再実行できない前提で、正しさと検証可能性は、論文が報告し記述している内容から判断してください。</li>
+        <li>回答を送り終えるまで、この5本を生み出した研究についての論文や、その公開リポジトリは見ないでください。AIによる評価の結果が載っています。</li>
+        <li>ほかの評価者と、論文や評価について話さないでください。</li>
+      </ol>
+
+      <h2>手順</h2>
+      <ol>
+        <li>下の欄に、依頼メールでお知らせした評価者IDを入れてください。IDごとに、論文を読む順番が決まります。</li>
+        <li>表示された順に論文（PDF）を読み、論文ごとに評価用紙に記入してください。<span class="req" aria-hidden="true">★</span>の項目は必須で、ほかは任意です。文章は日本語でも英語でもかまいません。</li>
+        <li>入力はこのブラウザに自動で保存されます。同じ端末の同じブラウザで開けば、続きから記入できます。別の端末に移るときは、下の「回答ファイルを保存」と「回答ファイルを読み込む」をお使いください。</li>
+        <li>5本すべてを終えたら「回答ファイルを保存」でファイルを保存し、依頼メールへの返信に添付して送ってください。</li>
+      </ol>
+
+      <h2>回答の扱い</h2>
+      <ul>
+        <li>回答は集計して、この研究の論文で報告します。評価者のお名前は出さず、R1、R2のような記号で示します。</li>
+        <li>文章の回答を論文で引用することがあります。その場合もお名前は出しません。</li>
+        <li>回答はこのページのサーバーには送られません。お使いのブラウザの中に保存され、ファイルとして送っていただくまで、依頼者には届きません。</li>
+      </ul>
+    </div>
+  </details>
+
+  <section id="start" class="card" aria-labelledby="start-title">
+    <h2 id="start-title">評価者ID</h2>
+    <form id="id-form" class="id-form" novalidate>
+      <label for="rater-id">依頼メールでお知らせしたID（例：R1）</label>
+      <div class="id-row">
+        <input id="rater-id" name="rater-id" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="16" inputmode="latin">
+        <button type="submit" class="btn primary">始める</button>
+      </div>
+      <p id="id-msg" class="msg" role="status"></p>
+    </form>
+    <div id="id-current" class="id-current" hidden>
+      <p><strong id="id-label"></strong> として記入しています。
+        <button type="button" id="btn-change-id" class="btn small" hidden>IDを変える</button></p>
+    </div>
+    <p id="storage-warning" class="msg warn" hidden>このブラウザでは自動保存が使えません。ページを閉じる前に、必ず「回答ファイルを保存」で保存してください。</p>
+  </section>
+
+  <section id="work" aria-labelledby="work-title" hidden>
+    <div class="work-head">
+      <h2 id="work-title">論文の評価</h2>
+      <p class="progress"><span id="progress-text"></span><span id="saved-text" class="saved" role="status"></span></p>
+    </div>
+    <nav aria-label="論文の一覧">
+      <ol id="paper-tabs" class="paper-tabs"></ol>
+    </nav>
+    <article id="paper-panel" class="card paper-panel" aria-live="polite"></article>
+  </section>
+
+  <section id="submit" class="card" aria-labelledby="submit-title" hidden>
+    <h2 id="submit-title">回答の送付</h2>
+    <p id="submit-status"></p>
+    <div class="btn-row">
+      <button type="button" id="btn-download" class="btn primary">回答ファイルを保存</button>
+      <button type="button" id="btn-copy" class="btn">回答をコピー</button>
+    </div>
+    <p class="note">保存したファイルを、依頼メールへの返信に添付して送ってください。添付できない場合は「回答をコピー」で、メールの本文に貼り付けてください。</p>
+    <p id="submit-msg" class="msg" role="status"></p>
+
+    <details class="sub-details">
+      <summary>別の端末で続ける・回答を消す</summary>
+      <div class="sub-body">
+        <p>別の端末で保存した回答ファイルを読み込むと、続きから記入できます。このブラウザに入っている回答は、ファイルの内容に置き換わります。</p>
+        <label class="btn file-btn">回答ファイルを読み込む<input type="file" id="file-import" accept=".json,application/json"></label>
+        <p id="import-msg" class="msg" role="status"></p>
+        <hr>
+        <p>このブラウザに保存された回答をすべて消します。元に戻せません。</p>
+        <button type="button" id="btn-clear" class="btn danger">回答を消す</button>
+        <span id="clear-confirm" hidden>
+          <span class="msg warn">本当に消しますか？</span>
+          <button type="button" id="btn-clear-yes" class="btn danger">消す</button>
+          <button type="button" id="btn-clear-no" class="btn">やめる</button>
+        </span>
+      </div>
+    </details>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>論文のPDFは、CC BY 4.0 で公開されているものと同じファイルです（著者表示：Autonomous Research Agents）。このページのコードは MIT License です。</p>
+    <p>評価用紙 v<span id="form-version"></span></p>
+  </div>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>
