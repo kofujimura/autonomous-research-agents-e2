@@ -611,7 +611,7 @@ if (typeof document !== 'undefined') {
     e.preventDefault();
     const id = normalizeId($('rater-id').value);
     if (!isValidId(id)) {
-      setMsg($('id-msg'), 'IDは英数字で入れてください（例：R1）。', 'err');
+      setMsg($('id-msg'), 'IDは英数字で入れてください（例：H1）。', 'err');
       return;
     }
     setMsg($('id-msg'), '', '');
